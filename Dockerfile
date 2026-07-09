@@ -37,6 +37,12 @@ RUN [ -e /usr/bin/httpx-pd ] && ln -sf /usr/bin/httpx-pd /usr/local/bin/httpx ||
 COPY synaps /usr/local/bin/synaps
 RUN chmod 755 /usr/local/bin/synaps && synaps --version
 
+# ---- default config: identity required for OAuth / broker Anthropic calls ----
+# Anthropic only accepts OAuth (Pro/Max) tokens from the Claude Code identity, so
+# the broker path (Lane C) needs this set. Fresh container = empty base dir, so
+# we seed it. Harmless for raw ANTHROPIC_API_KEY auth.
+COPY synaps-default.config /root/.synaps-cli/config
+
 # ---- entrypoint: the container boots into Synaps (the agent) ----
 # Default = launch synaps. `docker run <img> shell` drops to a raw shell.
 COPY entrypoint.sh /usr/local/bin/entrypoint.sh
