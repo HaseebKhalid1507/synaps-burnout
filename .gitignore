@@ -1,0 +1,10 @@
+# .gitignore — synaps-burnout
+# The Synaps binary is a release artifact, not source. fetch-synaps.sh pulls it
+# into the build context on demand (keeps a 16MB blob + private-repo asset out of git).
+synaps
+synaps-x86_64-unknown-linux-*
+*.tar.gz
+*.tar.gz.sha256
+
+# build logs
+build*.log
