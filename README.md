@@ -59,8 +59,11 @@ disk headroom.
 
 ## Upload (run)
 
+The container boots straight into the agent — you *deploy* the quickhack, you don't poke a shell.
+
 ```bash
-docker run -it --rm blackarch-synaps:bugbounty          # drops to a shell (entrypoint = bash)
+docker run -it --rm --env-file .env blackarch-synaps:bugbounty        # launch Synaps (the agent)
+docker run -it --rm --env-file .env blackarch-synaps:bugbounty shell  # raw shell instead
 ```
 
 ## Configuring auth (deploy time)
@@ -106,7 +109,7 @@ build clean; `synaps 0.5.1` runs inside; all tools spot-checked live.
 
 Tier 3 is the quickhack that fires. Tiers 4–5 make it *cheap and lethal* — the operator, not just the deck:
 
-- [ ] **Entrypoint** — boot into `synaps` (container *is* the agent) vs. shell.
+- [x] **Entrypoint** — boots into `synaps` (container *is* the agent); `shell` for a raw shell.
 - [x] **Credentials** — deploy-time auth config (env-driven, 4 lanes incl. zero-cred broker). See *Configuring auth*.
 - [ ] **Persistence** — mount `/work` so scope/loot survives the container.
 - [ ] **Operator persona** — Synaps that boots knowing the tools on its PATH.

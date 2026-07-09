@@ -37,7 +37,10 @@ RUN [ -e /usr/bin/httpx-pd ] && ln -sf /usr/bin/httpx-pd /usr/local/bin/httpx ||
 COPY synaps /usr/local/bin/synaps
 RUN chmod 755 /usr/local/bin/synaps && synaps --version
 
-# ---- ergonomics ----
+# ---- entrypoint: the container boots into Synaps (the agent) ----
+# Default = launch synaps. `docker run <img> shell` drops to a raw shell.
+COPY entrypoint.sh /usr/local/bin/entrypoint.sh
+RUN chmod 755 /usr/local/bin/entrypoint.sh
 WORKDIR /work
 ENV TERM=xterm-256color
-ENTRYPOINT ["/bin/bash"]
+ENTRYPOINT ["/usr/local/bin/entrypoint.sh"]
