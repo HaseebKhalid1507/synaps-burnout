@@ -97,14 +97,6 @@ Like the quickhack, damage scales with what you burn — bigger loadout hits har
 | `pentest`   | heavier | + metasploit, hydra, john, hashcat, crackmapexec, impacket, evil-winrm, enum4linux-ng, chisel |
 | `full`      | huge  | the entire `blackarch` group                                          |
 
-## Gotchas (learned the hard way, S239)
-
-- **`httpx` → `httpx-pd`.** BlackArch packages ProjectDiscovery's httpx as `httpx-pd`
-  to avoid the python-httpx collision. The Dockerfile symlinks `httpx` back for you.
-- **`katana` is not packaged** in BlackArch — dropped from the curated list. `go install` it if needed.
-- **Groups are fragile on rolling** — one unsatisfiable dep aborts the whole build.
-  Curated package lists sidestep this. That's why `full` carries a "may break" warning.
-
 ## Status — Tier 3 (foundation), S239 (2026-07-08)
 
 Foundation **built + verified**. `minimal` (1.46 GB) and `bugbounty` (5.74 GB) both
