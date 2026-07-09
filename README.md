@@ -44,6 +44,29 @@ disk headroom — currently **Avante**, not jade.
 docker run -it --rm blackarch-synaps:bugbounty          # drops to a shell (entrypoint = bash)
 ```
 
+## Configuring auth (deploy time)
+
+The image bakes **no credentials.** You supply auth at `docker run` time — pick one lane.
+Synaps resolves its credential source at runtime: if `SYNAPS_AUTH_ENDPOINT` is set it runs
+in **broker mode** (fetches short-lived tokens, stores nothing); otherwise it uses a local
+key from the environment.
+
+```bash
+cp .env.example .env      # then uncomment + fill ONE lane
+docker run --env-file .env -it --rm blackarch-synaps:bugbounty
+```
+
+| Lane | Env | When |
+|------|-----|------|
+| **A. Anthropic key** | `ANTHROPIC_API_KEY` | simplest — static, isolated, revocable |
+| **B. Local / OpenAI-compat** | `LOCAL_ENDPOINT` (+ `LOCAL_API_KEY`) | Ollama / vLLM / gateway; no cred leaves your net |
+| **C. Broker (zero-cred)** | `SYNAPS_AUTH_ENDPOINT` + `SYNAPS_MACHINE_TOKEN` | **offensive use** — nothing to steal if the box gets popped |
+| **D. Bring-your-own dir** | mount + `SYNAPS_BASE_DIR` | advanced; you own the blast-radius call |
+
+> ⚠️ **Don't mount your primary OAuth `auth.json` into an offensive container.** If a tool
+> gets popped by a hostile target, your Anthropic account goes with it. Use a scoped key (A)
+> or the broker (C) — that's the whole point of running recon in a container.
+
 ## Profiles
 
 | Profile     | Tools                                                                 |
@@ -71,7 +94,7 @@ build clean; `synaps 0.5.1` runs inside; all tools spot-checked live.
 The box is the body; the operator is the point. Not built yet:
 
 - [ ] **Entrypoint** — boot into `synaps` (container *is* the agent) vs. shell.
-- [ ] **Credentials** — how Synaps authenticates inside the box (an agent with no key is inert).
+- [x] **Credentials** — deploy-time auth config (env-driven, 4 lanes incl. zero-cred broker). See *Configuring auth*.
 - [ ] **Persistence** — mount `/work` so scope/loot survives the container.
 - [ ] **Operator persona** — Synaps that boots knowing the tools on its PATH.
 - [ ] **Skills / playbooks** — encoded recon pipeline (subfinder → httpx → nuclei → ffuf).

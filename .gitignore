@@ -8,3 +8,6 @@ synaps-x86_64-unknown-linux-*
 
 # build logs
 build*.log
+
+# filled-in secrets (the .env.example template IS tracked)
+.env
