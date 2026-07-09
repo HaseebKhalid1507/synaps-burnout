@@ -5,8 +5,15 @@
 agent runtime baked in as a static musl binary. Spin it up anywhere, get a fully
 armed recon environment with an autonomous agent already on the inside.
 
-> Reboot of the name — the old `synaps-burnout` (a Svelte web GUI for Synaps) is
-> archived at `~/Projects/synaps-burnout-svelte-archived`. This is the new Burnout.
+## The name
+
+Named after the **Synapse Burnout** quickhack from *Cyberpunk 2077* — an ultimate-tier
+intrusion program you upload into a target's neural link to overload their synapses
+until the brain cooks itself. Covert. Remote. Lethal.
+
+That's the design goal, not just a cool name: **`synaps`** (the agent) is the mind you
+upload; **burnout** is what it does to the target. You don't `ssh` in and putter around
+a shell — you *deploy* it. The BlackArch tools are the payload; the agent rides the wire.
 
 ---
 
