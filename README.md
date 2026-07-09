@@ -97,7 +97,7 @@ Like the quickhack, damage scales with what you burn — bigger loadout hits har
 | `pentest`   | heavier | + metasploit, hydra, john, hashcat, crackmapexec, impacket, evil-winrm, enum4linux-ng, chisel |
 | `full`      | huge  | the entire `blackarch` group                                          |
 
-## Status — Tier 3 (foundation), S239 (2026-07-08)
+## Status — Tier 3 (foundation), 2026-07-08
 
 Foundation **built + verified**. `minimal` (1.46 GB) and `bugbounty` (5.74 GB) both
 build clean; `synaps 0.5.1` runs inside; all tools spot-checked live.
