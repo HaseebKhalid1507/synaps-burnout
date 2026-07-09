@@ -26,7 +26,7 @@ damage scaling with the RAM you burn: **+10% per unit, up to +300%.** Higher tie
 
 This is that, made real. The mapping isn't decoration — it's the design:
 
-- **`synaps`** is the mind you upload; **burnout** is what it does to the target.
+- **`synaps`** is the agent you deploy; **burnout** is what it does to the target.
 - You don't `ssh` in and putter around a shell — you **deploy** it.
 - The BlackArch tools are the payload; the agent rides the wire.
 - **RAM scaling → profiles:** the more you load into the deck, the harder it hits — and
