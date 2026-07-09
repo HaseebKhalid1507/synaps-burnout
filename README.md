@@ -1,19 +1,38 @@
 # synaps-burnout
 
-**A self-contained offensive-security agent-in-a-box.** BlackArch (Arch rolling)
-+ a curated bug-bounty / pentest CLI toolkit + the [Synaps](https://github.com/HaseebKhalid1507/SynapsCLI)
-agent runtime baked in as a static musl binary. Spin it up anywhere, get a fully
-armed recon environment with an autonomous agent already on the inside.
+```
+╔══════════════════════════════════════════════════════════════════╗
+║  QUICKHACK ▸ SYNAPSE BURNOUT           internal: BrainMeltProgram ║
+║  CLASS      Combat quickhack  →  offensive agent-in-a-box         ║
+║  UPLOAD     docker run         (you deploy it — you don't install)║
+║  PAYLOAD    BlackArch toolkit + Synaps runtime (static musl)      ║
+║  EFFECT     remote recon/intrusion, agent already on the wire     ║
+╚══════════════════════════════════════════════════════════════════╝
+```
 
-## The name
+> *Overloads the target's neural pathways until the mind cooks itself. Covert. Remote. Lethal.*
 
-Named after the **Synapse Burnout** quickhack from *Cyberpunk 2077* — an ultimate-tier
-intrusion program you upload into a target's neural link to overload their synapses
-until the brain cooks itself. Covert. Remote. Lethal.
+A self-contained **offensive-security agent-in-a-box**: BlackArch (Arch rolling) + a
+curated bug-bounty / pentest CLI toolkit + the [Synaps](https://github.com/HaseebKhalid1507/SynapsCLI)
+agent runtime baked in as a static musl binary. Spin it up anywhere, get a fully armed
+recon environment with an autonomous agent already on the inside.
 
-That's the design goal, not just a cool name: **`synaps`** (the agent) is the mind you
-upload; **burnout** is what it does to the target. You don't `ssh` in and putter around
-a shell — you *deploy* it. The BlackArch tools are the payload; the agent rides the wire.
+## The quickhack
+
+In *Cyberpunk 2077*, **Synapse Burnout** (internal asset name `BrainMeltProgram`) is a
+combat quickhack — an intrusion program you upload into a target's neural link that deals
+damage scaling with the RAM you burn: **+10% per unit, up to +300%.** Higher tiers make it
+*cheaper* (Tier 4: kills refund RAM) and *harder-hitting* (Tier 5: +100% under Overclock).
+
+This is that, made real. The mapping isn't decoration — it's the design:
+
+- **`synaps`** is the mind you upload; **burnout** is what it does to the target.
+- You don't `ssh` in and putter around a shell — you **deploy** it.
+- The BlackArch tools are the payload; the agent rides the wire.
+- **RAM scaling → profiles:** the more you load into the deck, the harder it hits — and
+  the more it weighs (see *Loadout*).
+- **Tiers → roadmap:** Tier 3 is the foundation that ships today. Tiers 4–5 are the
+  operator, skills, and broker that make it *cheap and lethal* (see *Tier upgrades*).
 
 ---
 
@@ -25,7 +44,7 @@ a shell — you *deploy* it. The BlackArch tools are the payload; the agent ride
 - **Tools:** *curated CLI packages*, NOT `blackarch-*` groups. Groups drag in broken
   GUI tools (badkarma → webkit2gtk) and 128 tesseract OCR packs nobody wants headless.
 
-## Build
+## Compile the quickhack
 
 ```bash
 ./fetch-synaps.sh          # pull the Synaps musl binary into the build context (needs gh auth)
@@ -36,9 +55,9 @@ a shell — you *deploy* it. The BlackArch tools are the payload; the agent ride
 ```
 
 Builds are heavy (BlackArch base + seclists + nuclei-templates). Run on a host with
-disk headroom — currently **Avante**, not jade.
+disk headroom.
 
-## Run
+## Upload (run)
 
 ```bash
 docker run -it --rm blackarch-synaps:bugbounty          # drops to a shell (entrypoint = bash)
@@ -67,14 +86,16 @@ docker run --env-file .env -it --rm blackarch-synaps:bugbounty
 > gets popped by a hostile target, your Anthropic account goes with it. Use a scoped key (A)
 > or the broker (C) — that's the whole point of running recon in a container.
 
-## Profiles
+## Loadout (profiles)
 
-| Profile     | Tools                                                                 |
-|-------------|-----------------------------------------------------------------------|
-| `minimal`   | nmap, subfinder, httpx, nuclei, ffuf                                   |
-| `bugbounty` | + amass, dnsx, naabu, gau, feroxbuster, gobuster, wpscan, sqlmap, nikto, masscan, rustscan, seclists, nuclei-templates … |
-| `pentest`   | + metasploit, hydra, john, hashcat, crackmapexec, impacket, evil-winrm, enum4linux-ng, chisel |
-| `full`      | the entire `blackarch` group                                          |
+Like the quickhack, damage scales with what you burn — bigger loadout hits harder, weighs more.
+
+| Profile     | "RAM" | Tools                                                                 |
+|-------------|-------|-----------------------------------------------------------------------|
+| `minimal`   | ~1.5 GB | nmap, subfinder, httpx, nuclei, ffuf                                 |
+| `bugbounty` | ~5.7 GB | + amass, dnsx, naabu, gau, feroxbuster, gobuster, wpscan, sqlmap, nikto, masscan, rustscan, seclists, nuclei-templates … |
+| `pentest`   | heavier | + metasploit, hydra, john, hashcat, crackmapexec, impacket, evil-winrm, enum4linux-ng, chisel |
+| `full`      | huge  | the entire `blackarch` group                                          |
 
 ## Gotchas (learned the hard way, S239)
 
@@ -84,14 +105,14 @@ docker run --env-file .env -it --rm blackarch-synaps:bugbounty
 - **Groups are fragile on rolling** — one unsatisfiable dep aborts the whole build.
   Curated package lists sidestep this. That's why `full` carries a "may break" warning.
 
-## Status — S239 (2026-07-08)
+## Status — Tier 3 (foundation), S239 (2026-07-08)
 
 Foundation **built + verified**. `minimal` (1.46 GB) and `bugbounty` (5.74 GB) both
 build clean; `synaps 0.5.1` runs inside; all tools spot-checked live.
 
-## Roadmap — beyond the foundation
+## Tier upgrades (roadmap)
 
-The box is the body; the operator is the point. Not built yet:
+Tier 3 is the quickhack that fires. Tiers 4–5 make it *cheap and lethal* — the operator, not just the deck:
 
 - [ ] **Entrypoint** — boot into `synaps` (container *is* the agent) vs. shell.
 - [x] **Credentials** — deploy-time auth config (env-driven, 4 lanes incl. zero-cred broker). See *Configuring auth*.
