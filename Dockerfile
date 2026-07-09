@@ -41,6 +41,6 @@ RUN chmod 755 /usr/local/bin/synaps && synaps --version
 # Default = launch synaps. `docker run <img> shell` drops to a raw shell.
 COPY entrypoint.sh /usr/local/bin/entrypoint.sh
 RUN chmod 755 /usr/local/bin/entrypoint.sh
-WORKDIR /work
+WORKDIR /data
 ENV TERM=xterm-256color
 ENTRYPOINT ["/usr/local/bin/entrypoint.sh"]

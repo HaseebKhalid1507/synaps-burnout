@@ -111,6 +111,6 @@ Tier 3 is the quickhack that fires. Tiers 4–5 make it *cheap and lethal* — t
 
 - [x] **Entrypoint** — boots into `synaps` (container *is* the agent); `shell` for a raw shell.
 - [x] **Credentials** — deploy-time auth config (env-driven, 4 lanes incl. zero-cred broker). See *Configuring auth*.
-- [ ] **Persistence** — mount `/work` so scope/loot survives the container.
+- [ ] **Persistence** — mount `/data` so scope/loot survives the container.
 - [ ] **Operator persona** — Synaps that boots knowing the tools on its PATH.
 - [ ] **Skills / playbooks** — encoded recon pipeline (subfinder → httpx → nuclei → ffuf).
